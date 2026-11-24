@@ -95,6 +95,71 @@ echo "Modalità interattiva..."
 dmusic
 ```
 
+## Windows
+
+### Requisiti
+
+- Python 3.8+ (da https://www.python.org/downloads/, spunta "Add Python to PATH")
+- yt-dlp
+- deno (da https://deno.land/, oppure `winget install DenoLand.Deno`)
+
+### Installazione automatica (cmd / PowerShell)
+
+```cmd
+install.bat
+```
+
+Lo script stampa (echo) ogni passaggio:
+
+```cmd
+echo ==> Verifica Python...
+echo ==> Aggiornamento pip...
+echo ==> Installazione dipendenze Python (yt-dlp)...
+echo ==> Verifica yt-dlp...
+echo ==> Verifica deno (runtime JS per YouTube)...
+echo ==> Installazione del comando dmusic...
+echo ==> Installazione completata!
+```
+
+### Installazione manuale (PowerShell)
+
+```powershell
+# 1. Clona il repository
+git clone https://github.com/Croccantino/dmusic.git
+cd dmusic
+
+# 2. Installa le dipendenze Python
+python -m pip install -r requirements.txt
+
+# 3. Installa deno
+winget install DenoLand.Deno
+
+# 4. Verifica
+python download_audio_youtube.py --help
+```
+
+### Eseguire il comando con dmusic (Windows)
+
+```cmd
+echo Scarico un singolo video...
+dmusic https://youtu.be/VIDEO_ID --format m4a
+
+echo Scarico una playlist...
+dmusic https://youtube.com/playlist?list=PLAYLIST_ID -p
+
+echo Modalita' interattiva...
+dmusic
+```
+
+Comandi echo di debug (Windows):
+
+```cmd
+echo Python: & python --version
+echo yt-dlp: & yt-dlp --version
+echo deno: & deno --version
+where dmusic
+```
+
 Messaggi echo stampati dal programma durante l'esecuzione:
 
 ```bash
