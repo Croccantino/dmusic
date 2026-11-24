@@ -95,6 +95,55 @@ echo "Modalità interattiva..."
 dmusic
 ```
 
+## Scorciatoia con echo (alias)
+
+Invece di eseguire il programma direttamente, puoi creare la scorciatoia usando il comando `echo` (aggiunge l'alias al file di configurazione della shell).
+
+### Linux / macOS
+
+```bash
+echo "alias dmusic='python3 $HOME/dmusic/download_audio_youtube.py'" >> ~/.bashrc
+echo "export PATH=\"$HOME/.local/bin:\$PATH\"" >> ~/.bashrc
+source ~/.bashrc
+echo "Scorciatoia creata: dmusic"
+```
+
+Verifica:
+
+```bash
+echo "Test scorciatoia:"; type dmusic
+```
+
+### Windows (cmd)
+
+Crea il file `dmusic.bat` nella cartella utente con echo:
+
+```cmd
+echo @python "%USERPROFILE%\dmusic\download_audio_youtube.py" %%* > "%USERPROFILE%\dmusic.bat"
+echo Scorciatoia creata: %USERPROFILE%\dmusic.bat
+```
+
+Aggiungi la cartella al PATH (una sola volta):
+
+```cmd
+echo setx PATH "%%PATH%%;%%USERPROFILE%%" 
+```
+
+Verifica:
+
+```cmd
+echo Test scorciatoia: & where dmusic
+```
+
+### Windows (PowerShell)
+
+```powershell
+echo "function dmusic { python `"$HOME\dmusic\download_audio_youtube.py`" @args }" >> $PROFILE
+echo "Scorciatoia creata nel profilo PowerShell"
+. $PROFILE
+echo "Test:"; Get-Command dmusic
+```
+
 ## Windows
 
 ### Requisiti
