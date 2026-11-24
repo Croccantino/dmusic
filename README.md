@@ -29,24 +29,21 @@ python3 download_audio_youtube.py
 - yt-dlp
 - deno (for YouTube JS runtime)
 
-## Installazione
+## Installazione (Linux / macOS)
 
-### Metodo rapido (script automatico)
+### Metodo rapido
 
 ```bash
 chmod +x install.sh
 ./install.sh
 ```
 
-Lo script stampa (echo) ogni passaggio:
+Lo script installa le dipendenze, deno (se manca) e il comando `dmusic` in `~/.local/bin`.
+
+Dopo l'installazione riapri il terminale (o `source ~/.bashrc`), poi:
 
 ```bash
-echo "==> Verifica Python..."
-echo "==> Aggiornamento pip..."
-echo "==> Installazione dipendenze Python (yt-dlp)..."
-echo "==> Verifica yt-dlp..."
-echo "==> Verifica deno (runtime JS per YouTube)..."
-echo "==> Installazione completata!"
+dmusic --help
 ```
 
 ### Metodo manuale
@@ -56,165 +53,85 @@ echo "==> Installazione completata!"
 git clone https://github.com/Croccantino/dmusic.git
 cd dmusic
 
-# 2. (Opzionale) crea un virtualenv
-python3 -m venv venv
-source venv/bin/activate
+# 2. Installa le dipendenze Python
+python3 -m pip install -r requirements.txt
 
-# 3. Installa le dipendenze Python
-pip install -r requirements.txt
-
-# 4. Installa deno (richiesto da yt-dlp per YouTube)
+# 3. Installa deno (richiesto da yt-dlp per YouTube)
 curl -fsSL https://deno.land/install.sh | sh
 export PATH="$HOME/.deno/bin:$PATH"
 
-# 5. Verifica
+# 4. Verifica
 python3 download_audio_youtube.py --help
 ```
 
-### Comandi echo utili (debug)
+### Comandi di debug
 
 ```bash
-echo "Python: $(python3 --version)"
-echo "yt-dlp: $(yt-dlp --version)"
-echo "deno: $(deno --version 2>/dev/null | head -n1)"
-echo "PATH deno: $HOME/.deno/bin"
+python3 --version
+yt-dlp --version
+deno --version 2>/dev/null | head -n1
 ```
 
-### Eseguire il comando con dmusic
+### Usare il comando dmusic
 
-Dopo l'installazione puoi usare il comando `dmusic` direttamente:
+Dopo l'installazione:
 
 ```bash
-echo "Scarico un singolo video..."
 dmusic https://youtu.be/VIDEO_ID --format m4a
-
-echo "Scarico una playlist..."
 dmusic https://youtube.com/playlist?list=PLAYLIST_ID -p
-
-echo "Modalità interattiva..."
 dmusic
 ```
 
-## Scorciatoia con echo (alias)
-
-Invece di eseguire il programma direttamente, puoi creare la scorciatoia usando il comando `echo` (aggiunge l'alias al file di configurazione della shell).
-
-### Linux / macOS
-
-```bash
-echo "alias dmusic='python3 $HOME/dmusic/download_audio_youtube.py'" >> ~/.bashrc
-echo "export PATH=\"$HOME/.local/bin:\$PATH\"" >> ~/.bashrc
-source ~/.bashrc
-echo "Scorciatoia creata: dmusic"
-```
-
-Verifica:
-
-```bash
-echo "Test scorciatoia:"; type dmusic
-```
-
-### Windows (cmd)
-
-Crea il file `dmusic.bat` nella cartella utente con echo:
-
-```cmd
-echo @python "%USERPROFILE%\dmusic\download_audio_youtube.py" %%* > "%USERPROFILE%\dmusic.bat"
-echo Scorciatoia creata: %USERPROFILE%\dmusic.bat
-```
-
-Aggiungi la cartella al PATH (una sola volta):
-
-```cmd
-echo setx PATH "%%PATH%%;%%USERPROFILE%%" 
-```
-
-Verifica:
-
-```cmd
-echo Test scorciatoia: & where dmusic
-```
-
-### Windows (PowerShell)
-
-```powershell
-echo "function dmusic { python `"$HOME\dmusic\download_audio_youtube.py`" @args }" >> $PROFILE
-echo "Scorciatoia creata nel profilo PowerShell"
-. $PROFILE
-echo "Test:"; Get-Command dmusic
-```
-
-## Windows
+## Installazione (Windows)
 
 ### Requisiti
 
 - Python 3.8+ (da https://www.python.org/downloads/, spunta "Add Python to PATH")
-- yt-dlp
-- deno (da https://deno.land/, oppure `winget install DenoLand.Deno`)
+- deno (`winget install DenoLand.Deno`)
 
-### Installazione automatica (cmd / PowerShell)
+### Metodo rapido (cmd)
 
 ```cmd
 install.bat
 ```
 
-Lo script stampa (echo) ogni passaggio:
+Installa le dipendenze e il comando `dmusic` in `%USERPROFILE%\bin`.
+
+Dopo l'installazione aggiungi `%USERPROFILE%\bin` al PATH se non presente:
 
 ```cmd
-echo ==> Verifica Python...
-echo ==> Aggiornamento pip...
-echo ==> Installazione dipendenze Python (yt-dlp)...
-echo ==> Verifica yt-dlp...
-echo ==> Verifica deno (runtime JS per YouTube)...
-echo ==> Installazione del comando dmusic...
-echo ==> Installazione completata!
+setx PATH "%PATH%;%USERPROFILE%\bin"
 ```
 
-### Installazione manuale (PowerShell)
+Poi apri un nuovo terminale e verifica:
+
+```cmd
+dmusic --help
+```
+
+### Metodo manuale (PowerShell)
 
 ```powershell
-# 1. Clona il repository
 git clone https://github.com/Croccantino/dmusic.git
 cd dmusic
-
-# 2. Installa le dipendenze Python
 python -m pip install -r requirements.txt
-
-# 3. Installa deno
 winget install DenoLand.Deno
-
-# 4. Verifica
 python download_audio_youtube.py --help
 ```
 
-### Eseguire il comando con dmusic (Windows)
+### Usare il comando dmusic (Windows)
 
 ```cmd
-echo Scarico un singolo video...
 dmusic https://youtu.be/VIDEO_ID --format m4a
-
-echo Scarico una playlist...
 dmusic https://youtube.com/playlist?list=PLAYLIST_ID -p
-
-echo Modalita' interattiva...
 dmusic
 ```
 
-Comandi echo di debug (Windows):
+### Comandi di debug (Windows)
 
 ```cmd
-echo Python: & python --version
-echo yt-dlp: & yt-dlp --version
-echo deno: & deno --version
+python --version
+yt-dlp --version
+deno --version
 where dmusic
-```
-
-Messaggi echo stampati dal programma durante l'esecuzione:
-
-```bash
-echo "Formato: mp3 (usa -f per cambiarlo)"
-echo "Download playlist in: <cartella>"
-echo "Download completato in: <cartella> in formato <fmt>"
-echo "HTTP 403, nuovo tentativo (x/3)..."
-echo "Errore: ..."
 ```
