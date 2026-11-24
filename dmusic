@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+# dmusic — wrapper per eseguire il downloader come comando
+exec python3 "$(dirname "$(readlink -f "$0")")/download_audio_youtube.py" "$@"

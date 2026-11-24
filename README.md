@@ -79,3 +79,28 @@ echo "yt-dlp: $(yt-dlp --version)"
 echo "deno: $(deno --version 2>/dev/null | head -n1)"
 echo "PATH deno: $HOME/.deno/bin"
 ```
+
+### Eseguire il comando con dmusic
+
+Dopo l'installazione puoi usare il comando `dmusic` direttamente:
+
+```bash
+echo "Scarico un singolo video..."
+dmusic https://youtu.be/VIDEO_ID --format m4a
+
+echo "Scarico una playlist..."
+dmusic https://youtube.com/playlist?list=PLAYLIST_ID -p
+
+echo "Modalità interattiva..."
+dmusic
+```
+
+Messaggi echo stampati dal programma durante l'esecuzione:
+
+```bash
+echo "Formato: mp3 (usa -f per cambiarlo)"
+echo "Download playlist in: <cartella>"
+echo "Download completato in: <cartella> in formato <fmt>"
+echo "HTTP 403, nuovo tentativo (x/3)..."
+echo "Errore: ..."
+```
