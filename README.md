@@ -135,3 +135,56 @@ yt-dlp --version
 deno --version
 where dmusic
 ```
+
+## Rimozione
+
+### Linux / macOS
+
+Metodo rapido:
+
+```bash
+chmod +x uninstall.sh
+./uninstall.sh
+```
+
+Metodo manuale (comandi di rimozione):
+
+```bash
+# Rimuovi il comando dmusic e lo script copiato
+rm -f ~/.local/bin/dmusic
+rm -f ~/.local/bin/download_audio_youtube.py
+
+# Rimuovi la dipendenza Python yt-dlp
+pip uninstall -y yt-dlp
+
+# Rimuovi la riga PATH da ~/.bashrc (se aggiunta dall'install)
+sed -i '/export PATH="$HOME\/.local\/bin:$PATH"/d' ~/.bashrc
+
+# (Opzionale) rimuovi deno
+rm -rf ~/.deno
+
+echo "Rimozione completata"
+```
+
+### Windows
+
+Metodo rapido (cmd):
+
+```cmd
+uninstall.bat
+```
+
+Metodo manuale (comandi di rimozione):
+
+```cmd
+del "%USERPROFILE%\bin\dmusic.bat"
+del "%USERPROFILE%\bin\download_audio_youtube.py"
+pip uninstall -y yt-dlp
+echo Rimozione completata
+```
+
+(Opzionale) rimuovi deno:
+
+```cmd
+rmdir /S /Q "%USERPROFILE%\.deno"
+```
