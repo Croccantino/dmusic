@@ -32,9 +32,10 @@ fi
 
 echo "==> Installazione del comando 'dmusic'..."
 mkdir -p "$HOME/.local/bin"
-cat > "$HOME/.local/bin/dmusic" <<EOF
+cp "$REPO_DIR/download_audio_youtube.py" "$HOME/.local/bin/download_audio_youtube.py"
+cat > "$HOME/.local/bin/dmusic" <<'EOF'
 #!/usr/bin/env bash
-exec python3 "$REPO_DIR/download_audio_youtube.py" "\$@"
+exec python3 "$HOME/.local/bin/download_audio_youtube.py" "$@"
 EOF
 chmod +x "$HOME/.local/bin/dmusic"
 
