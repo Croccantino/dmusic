@@ -136,6 +136,81 @@ deno --version
 where dmusic
 ```
 
+## Termux (Android)
+
+### Requisiti
+
+- Termux (da F-Droid, non Play Store)
+- Python, ffmpeg
+
+### Installazione rapida
+
+```bash
+chmod +x install_termux.sh
+./install_termux.sh
+```
+
+### Installazione manuale
+
+```bash
+# 1. Aggiorna i pacchetti
+pkg update && pkg upgrade
+
+# 2. Installa Python e ffmpeg
+pkg install python ffmpeg
+
+# 3. Clona il repository
+git clone https://github.com/Croccantino/dmusic.git
+cd dmusic
+
+# 4. Installa le dipendenze Python
+pip install -r requirements.txt
+
+# 5. Installa deno
+pkg install deno
+
+# 6. Crea il comando dmusic
+mkdir -p ~/.local/bin
+cp download_audio_youtube.py ~/.local/bin/
+cat > ~/.local/bin/dmusic <<'EOF'
+#!/data/data/com.termux/files/usr/bin/bash
+exec python ~/.local/bin/download_audio_youtube.py "$@"
+EOF
+chmod +x ~/.local/bin/dmusic
+echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.bashrc
+source ~/.bashrc
+
+# 7. Verifica
+dmusic --help
+```
+
+### Comandi di debug (Termux)
+
+```bash
+python --version
+yt-dlp --version
+deno --version 2>/dev/null | head -n1
+which dmusic
+```
+
+### Usare dmusic (Termux)
+
+```bash
+dmusic https://youtu.be/VIDEO_ID --format m4a
+dmusic https://youtube.com/playlist?list=PLAYLIST_ID -p
+dmusic
+```
+
+### Rimozione (Termux)
+
+```bash
+rm -f ~/.local/bin/dmusic
+rm -f ~/.local/bin/download_audio_youtube.py
+pip uninstall -y yt-dlp
+sed -i '/export PATH="$HOME\/.local\/bin:$PATH"/d' ~/.bashrc
+echo "Rimozione completata"
+```
+
 ## Rimozione
 
 ### Linux / macOS
